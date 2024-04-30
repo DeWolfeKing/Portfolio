@@ -20,11 +20,8 @@ export const todoListReducer = createSlice({
             state.todoList = [...state.todoList.slice(0,deleteIndex), ...state.todoList.slice(deleteIndex+1)]
         },
         changeTodo: ( state, action) => {
-            console.log('Action Payload CHANGE :',action.payload)
             let changeIndex = state.todoList.findIndex((item) => (item.id === action.payload.id))
-            console.log('INDEX CHANGE :',changeIndex)
             state.todoList = [...state.todoList.slice(0,changeIndex),action.payload, ...state.todoList.slice(changeIndex+1)]
-            console.log('Todo state CHANGE :',state.todoList)
         },
     },
 })
