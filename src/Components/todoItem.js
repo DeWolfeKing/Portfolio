@@ -1,6 +1,5 @@
 import '../App.css';
 import {useState} from "react";
-import {changeTodo} from "../store/reducers/todoListReducer";
 
 export default function TodoItem( props ) {
 
@@ -8,15 +7,20 @@ export default function TodoItem( props ) {
 
     const [name,setName] = useState(props.item.name);
     const [desc,setDesc] = useState(props.item.desc);
+    const complete = props.item.complete;
+
+    function completeToDoFunction () {
+        props.changeFunc(props.item.id,name,desc,!complete)
+    }
 
     function changeToDoFunction () {
-        props.changeFunc(props.item.id,name,desc)
+        props.changeFunc(props.item.id,name,desc,complete)
         setChange(false)
     }
 
     return(
         <div className={'taskList'}>
-            <p></p>
+            <p>{`№ ${props.index+1} `}</p>
             { change ? (
                 <div className={'taskInfo'}>
                     <input value={name}
@@ -40,7 +44,7 @@ export default function TodoItem( props ) {
                 </div>
             ) : (
                 <div className={'buttonSection'}>
-                    <button>Complete</button>
+                    <button onClick={ () => (completeToDoFunction())}>Complete</button>
                     <button onClick={ () => (setChange(true))}>Change</button>
                     <button onClick={ () => (props.deleteFunc(props.item.id))}>Delete</button>
                 </div>
